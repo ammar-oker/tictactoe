@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+move1:
+  col_idx: 1
+  row_idx: 1
+  player: "user"
+  game: game1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+move2:
+  col_idx: 2
+  row_idx: 2
+  player: "bot"
+  game: game1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
