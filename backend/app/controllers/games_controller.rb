@@ -1,65 +1,57 @@
 class GamesController < ApplicationController
-  # Set user before executing any action in the controller
-  before_action :set_user
-
-  # GET /games
-  # Returns the current active game or a 'No active game found' message with a 404 status
-  def index
-    game = Game.find_by(user: @user, finished: false)
-    if game
-      render json: game.game_with_state
-    else
-      render json: { message: 'No active game found' }, status: :not_found
+  # GET /games/:user
+  # Returns the active game for the current user,
+  # or a 'No active game for this user.' message with a 404 status
+  def show
+    begin
+      @game = Game.find(params[:id])
+    render json: @game, status: :ok
+    rescue ActiveRecord::RecordNotFound
+      render_error(404, 'No active game for this user.')
     end
   end
 
   # POST /games
   # Creates a new game and marks all previous games for the user as finished
   def create
-    Game.mark_all_finished_for_user(@user)
-
-    game = Game.new(user: @user, finished: false, selected_symbol: game_params[:selected_symbol])
-
-    if game.save
-      render json: game.game_with_state, status: :created
+    @game = Game.new(selected_symbol: game_params[:selected_symbol])
+    if @game.save
+      render json: @game, status: :created
     else
-      render json: { errors: game.errors }, status: :unprocessable_entity
+      render_validation_errors(@game)
     end
   end
+
 
   # PATCH/PUT /games/:id
   # Updates the game with a user move and processes the bot move
   def update
-    game = Game.find_by(id: params[:id])
-    return render json: { message: 'Game not found' }, status: :not_found if game.nil?
+    @game = Game.find_by(id: params[:id])
+    return render_error(404, 'Game not found') if @game.nil?
+    return render_error(422, 'Game finished') if @game.finished
 
-    return render json: { message: 'Game finished' }, status: :unprocessable_entity if game.finished
-
-    existing_move = Move.find_by(game_id: game.id, col_idx: game_params[:col_idx], row_idx: game_params[:row_idx])
-    return render json: { message: 'Requested position is already occupied' }, status: :unprocessable_entity if existing_move
+    existing_move = Move.find_by(game_id: @game.id, col_idx: game_params[:col_idx], row_idx: game_params[:row_idx])
+    return render_error(422, 'Requested position is already occupied') if existing_move
 
     col_idx = game_params[:col_idx]
     row_idx = game_params[:row_idx]
 
-    user_move = Move.new(game: game, col_idx: col_idx, row_idx: row_idx, player: 'user')
-
+    user_move = @game.moves.new(game: @game, col_idx: col_idx, row_idx: row_idx, player: 'user')
     if user_move.save
-      return render json: game.game_with_state if game.winner
-      result = game.process_bot_move
-      render json: result, status: :ok
+      if @game.winner
+        render json: GameSerializer.new(@game, include: [:moves]).serializable_hash
+      else
+        @game.process_bot_move
+        @game.reload
+        render json: GameSerializer.new(@game, include: [:moves]).serializable_hash, status: :ok
+      end
     else
-      render json: { errors: user_move.errors }, status: :unprocessable_entity
+      render_validation_errors(user_move)
     end
   end
 
-  private
 
-  # Sets the user from the request header or generates a new UUID if not present
-  def set_user
-    @user = request.headers['X-TTT-User-ID']
-    @user = SecureRandom.uuid unless @user.present?
-    response.headers['X-TTT-User-ID'] = @user
-  end
+  private
 
   # Permits the required parameters for game updates
   def game_params

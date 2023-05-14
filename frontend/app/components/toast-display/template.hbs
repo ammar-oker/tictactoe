@@ -1,0 +1,7 @@
+<div class="toast-container">
+{{#each this.toast.notifications as |notification|}}
+  <div class="toast {{notification.type}}">
+    {{notification.message}}
+  </div>
+{{/each}}
+</div>

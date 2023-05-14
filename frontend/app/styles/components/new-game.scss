@@ -1,0 +1,43 @@
+@import '../variables';
+
+.new-game {
+  .new-game-header {
+    padding: 15px;
+  }
+
+  .new-game-title {
+    margin: 0;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .new-game-actions {
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .new-game-symbol-button {
+    cursor: pointer;
+    height: 80px;
+    width: 80px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    overflow: visible;
+    position: relative;
+  }
+
+  .new-game-symbol-button::before {
+    content: '';
+    position: absolute;
+    min-height: 108%;
+    min-width: 108%;
+    top: 50%;
+    left: 50%;
+    border-radius: 11px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, $secondary-color-light 0%, $primary-color-light 100%);
+    z-index: -1;
+  }
+}

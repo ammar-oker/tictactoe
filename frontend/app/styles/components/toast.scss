@@ -1,0 +1,44 @@
+@import '../variables';
+
+.toast-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  z-index: 9999;
+}
+
+.toast {
+  position: relative;
+  background-color: #333;
+  color: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  animation: slide-in 0.5s ease;
+}
+
+.toast.info {
+  background-color: $info-color;
+}
+
+.toast.error {
+  background-color: $error-color;
+}
+
+.toast.warning {
+  background-color: $warning-color;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(100%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}

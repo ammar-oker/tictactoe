@@ -1,15 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 game1:
-  user: "John"
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
-  finished: false
   selected_symbol: "x"
 
 game2:
-  user: "Jane"
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
-  finished: true
   selected_symbol: "o"

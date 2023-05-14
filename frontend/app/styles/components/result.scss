@@ -1,0 +1,21 @@
+.result {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .result-symbols {
+    display: flex;
+    height: 100%;
+    .symbol {
+      margin: 5%;
+      max-height: 120px;
+    }
+  }
+
+  .result-text {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+}

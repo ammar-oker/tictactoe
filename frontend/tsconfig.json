@@ -1,0 +1,26 @@
+{
+  "extends": "@tsconfig/ember/tsconfig.json",
+  "compilerOptions": {
+    "strictNullChecks": false,
+    "baseUrl": ".",
+    "paths": {
+      "frontend/tests/*": [
+        "tests/*"
+      ],
+      "frontend/*": [
+        "app/*"
+      ],
+      "fetch": [
+        "node_modules/ember-fetch"
+      ],
+      "*": [
+        "types/*"
+      ]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "tests/**/*",
+    "types/**/*"
+  ]
+}

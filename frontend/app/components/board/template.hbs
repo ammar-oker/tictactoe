@@ -1,0 +1,11 @@
+<div class="game-board">
+    {{#each this.gameService.board as |row rowIndex|}}
+        <div class="row">
+            {{#each row as |cell colIndex|}}
+                <button disabled={{this.api.loading}} class="cell {{if cell 'selected'}}" type="button" {{on "click" (fn this.onPlay cell rowIndex colIndex)}}>
+                    <Board::Symbol @player={{cell}} @selectedSymbol={{this.symbol}} />
+                </button>
+            {{/each}}
+        </div>
+    {{/each}}
+</div>
