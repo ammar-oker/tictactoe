@@ -1,7 +1,9 @@
-{{page-title "Frontend"}}
+{{page-title "Tic-Tac-Toe"}}
+<div class="container">
+  <Board />
+  <NewGame @showModal={{this.showNewGameModal}} />
+  <Result @showModal={{this.showResultModal}} />
+  <ToastDisplay />
+  <Loading/>
+</div>
 
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
-{{outlet}}

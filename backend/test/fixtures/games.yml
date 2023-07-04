@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+game1:
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  selected_symbol: "x"
+
+game2:
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  selected_symbol: "o"

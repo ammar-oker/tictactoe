@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  backend:
+    image: tictactoe/backend:latest
+    volumes:
+      - db:/app/db
+    environment:
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+
+  frontend:
+    image: tictactoe/frontend:latest
+    ports:
+      - "80:80"
+
+volumes:
+  db:

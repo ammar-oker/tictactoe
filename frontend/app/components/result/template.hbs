@@ -1,0 +1,14 @@
+<Modal @showModal={{this.args.showModal}}>
+  <div class="result">
+    <div class="result-symbols">
+      {{#each this.symbols as |symbol|}}
+        {{#let (concat "svg/" symbol "-symbol") as |svgPath|}}
+          {{inline-svg svgPath class=(concat "symbol " symbol "-symbol")}}
+        {{/let}}
+      {{/each}}
+    </div>
+    <h4 class="result-text">{{{this.winnerText}}}</h4>
+    <button class="btn-base" type="button" {{on 'click' this.startNewGame}}>Start new game</button>
+  </div>
+</Modal>
+

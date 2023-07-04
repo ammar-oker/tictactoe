@@ -1,0 +1,5 @@
+{{#if (eq this.symbol "x")}}
+  {{inline-svg "svg/x-symbol" class=(if this.isBlank "x-symbol symbol blank" "symbol x-symbol")}}
+{{else}}
+  {{inline-svg "svg/o-symbol" class=(if this.isBlank "o-symbol symbol blank" "symbol o-symbol")}}
+{{/if}}

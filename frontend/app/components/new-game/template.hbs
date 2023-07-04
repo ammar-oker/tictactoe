@@ -1,0 +1,18 @@
+<Modal @showModal={{this.args.showModal}}>
+  <div class="new-game">
+    <div class="new-game-header">
+      <h3 class="new-game-title">Pick your symbol!</h3>
+    </div>
+    <div class="new-game-content">
+      <div class="new-game-actions">
+        <button class="new-game-symbol-button" type="button" {{on "click" (fn this.handleClick 'x')}}>
+          {{inline-svg "svg/x-symbol" class="x-symbol"}}
+        </button>
+        <button class="new-game-symbol-button" type="button" {{on "click" (fn this.handleClick 'o')}}>
+          {{inline-svg "svg/o-symbol" class="o-symbol"}}
+        </button>
+      </div>
+    </div>
+  </div>
+</Modal>
+
